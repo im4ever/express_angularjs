@@ -1,0 +1,237 @@
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">Ubtech</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> Vincent Gabriel <i class="caret"></i>
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a tabindex="-1" href="#">Profile</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a tabindex="-1" href="login.html">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav">
+
+                    <li class="dropdown">
+                        <a href="/admin#/users" role="button" class="dropdown-toggle" data-toggle="dropdown">用户管理
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/admin#/modelverify" role="button" class="dropdown-toggle" data-toggle="dropdown">模型管理
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="/admin#/rank" role="button" class="dropdown-toggle" data-toggle="dropdown">排行榜
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="/admin#/geturl" role="button" class="dropdown-toggle" data-toggle="dropdown">APP管理
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3" id="sidebar">
+            <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+                <li class="">
+                    <a href="/admin#/modelverify"><i class="icon-chevron-right"></i> 模型审核列表</a>
+                </li>
+                <li class="active">
+                    <a href="/admin#/modelupload?mid={{mid}}"><i class="icon-chevron-right"></i> 完善模型上传</a>
+                </li>
+            </ul>
+        </div>
+        <div class="span9" >
+            <div class="block-content collapse in">
+                <div class="span12">
+                    <h3>授权模型,id:{{mid}}</h3>
+                    <div id="photocontainer">
+                        <div class="control-group warning">
+                            <div class="controls">
+                                <a class="btn btn-warning btn-lg " id="modelPhoto" href="javascript:void(0)" >上传图片授权</a>
+                                <span class="help-inline">每上传一张图片都要重新授权</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="videocontainer">
+                        <div class="control-group success">
+                            <div class="controls">
+                                <a class="btn btn-success btn-lg " id="modelVideo" href="javascript:void(0)" >上传视频授权</a>
+                                <span class="help-inline">每上传一个视频都要重新授权</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div id="filecontainer">
+                        <div class="control-group error">
+                            <div class="controls">
+                                <a class="btn btn-danger btn-lg " id="modelFile" href="javascript:void(0)" >上传文件授权</a>
+                                <span class="help-inline">每上传一个文件都要重新授权</span>
+                            </div>
+                        </div>
+                    </div>-->
+
+                    <div id="container">
+                        <h3>上传</h3>
+                        <div class="control-group ">
+                            <div class="controls">
+                                <a class="btn btn-info btn-lg " id="pickfiles" href="javascript:void(0)" >选择文件</a>
+                                <span class="help-inline">只能选择单个文件</span>
+                            </div>
+                        </div>
+                        <div id="rootwizard">
+                            <div id="bar" class="progress progress-striped active">
+                                <div class="bar" style="width: 0;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<input type="hidden"  id="mid" >
+<script type="text/javascript" src="bower_components/plupload/js/plupload.full.min.js"></script>
+<script type="text/javascript" src="bower_components/plupload/js/i18n/zh_CN.js"></script>
+<script type="text/javascript" src="bower_components/qiniu/qiniu.js"></script>
+<script src="bower_components/Admin-Theme/vendors/wizard/jquery.bootstrap.wizard.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+
+
+        $('#modelPhoto').click(function(){
+            $.ajax({url: '../admin/upload/modelPhoto?uid=0', success:function (data) {
+                alert('授权成功');
+                $('#rootwizard').find('.bar').css({width:0});
+                init(data.data.uptoken,data.data.key,0);
+            }})
+        });
+        $('#modelVideo').click(function(){
+            $.ajax({url: '../admin/upload/video?uid=0', success:function (data) {
+                alert('授权成功');
+                $('#rootwizard').find('.bar').css({width:0});
+                init(data.data.uptoken,data.data.key,1);
+            }})
+        });
+        $('#modelFile').click(function(){
+            $.ajax({url: '../admin/upload/modelFile?uid=0', success:function (data) {
+                alert('授权成功');
+                $('#rootwizard').find('.bar').css({width:0});
+                init(data.data.uptoken,data.data.key,2);
+            }})
+        });
+    });
+    var init=function(uptoken,key,type){
+        //引入Plupload 、qiniu.js后
+        var uploader = Qiniu.uploader({
+            runtimes: 'html5,flash,html4',    //上传模式,依次退化
+            browse_button: 'pickfiles',       //上传选择的点选按钮，**必需**
+            // uptoken_url: 'http://localhost:3000/admin/upload/modelPhoto',            //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
+            uptoken : uptoken, //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
+            unique_names: false, // 默认 false，key为文件名。若开启该选项，SDK为自动生成上传成功后的key（文件名）。
+            save_key: false,   // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK会忽略对key的处理
+            domain: 'http://7xlcoq.com1.z0.glb.clouddn.com/',   //bucket 域名，下载资源时用到，**必需**
+            container: 'container',           //上传区域DOM ID，默认是browser_button的父元素，
+            max_file_size: '100mb',           //最大文件体积限制
+            flash_swf_url: 'js/plupload/Moxie.swf',  //引入flash,相对路径
+            max_retries: 3,                   //上传失败最大重试次数
+            dragdrop: true,                   //开启可拖曳上传
+            drop_element: 'container',        //拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
+            chunk_size: '4mb',                //分块上传时，每片的体积
+            auto_start: true,                 //选择文件后自动上传，若关闭需要自己绑定事件触发上传
+            init: {
+                'FilesAdded': function(up, files) {
+                    plupload.each(files, function(file) {
+                        // 文件添加进队列后,处理相关的事情
+
+                    });
+
+                },
+                'BeforeUpload': function(up, file) {
+                    $('#rootwizard').bootstrapWizard();
+                },
+                'UploadProgress': function(up, file) {
+                    $('#rootwizard').find('.bar').css({width:file.percent+'%'});
+                    // 每个文件上传时,处理相关的事情
+                },
+                'FileUploaded': function(up, file, info) {
+                    // 每个文件上传成功后,处理相关的事情
+                    // 其中 info 是文件上传成功后，服务端返回的json，形式如
+                    // {
+                    //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+                    //    "key": "gogopher.jpg"
+                    //  }
+                    // 参考http://developer.qiniu.com/docs/v6/api/overview/up/response/simple-response.html
+
+                    var mid=$('#mid').val();
+                    var res = $.parseJSON(info);
+                    if(type==0){
+                        var domain = up.getOption('domain');
+                        var sourceLink = domain + res.key;// 获取上传成功后的文件的Url
+                        var record={mid:mid,purl:sourceLink,mediaType:0};
+                        $.post('../callback/qiniu_media',
+                            record,
+                            function(data){
+                                alert('上传成功');
+                            }
+                        );
+                    }else if(type==1){
+                        setTimeout(function(){
+                            $.post('../callback/qiniu_video',
+                                    {key:key,vid:res.data.vid},
+                                    function(data){
+                                        var record={mid:mid,purl:data.data.purl,mediaType:1,videoUrl:res.data.url};
+                                        $.post(
+                                            '../callback/qiniu_media',
+                                            record,
+                                            function(data){
+                                                alert('上传成功');
+                                            }
+                                        );
+                                    }
+                            )
+                        },2000);
+
+                    }
+                },
+                'Error': function(up, err, errTip) {
+                    alert('上传失败');
+                    //上传出错时,处理相关的事情
+                },
+                'UploadComplete': function() {
+                    //队列文件处理完毕后,处理相关的事情
+                },
+                'Key': function(up, file) {
+                    // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+                    // 该配置必须要在 unique_names: false , save_key: false 时才生效
+
+                    // do something with key here
+                    return key
+                }
+            }
+        });
+
+    };
+
+    // domain 为七牛空间（bucket)对应的域名，选择某个空间后，可通过"空间设置->基本设置->域名设置"查看获取
+
+    // uploader 为一个plupload对象，继承了所有plupload的方法，参考http://plupload.com/docs
+</script>

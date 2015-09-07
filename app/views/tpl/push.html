@@ -1,0 +1,130 @@
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">Ubtech</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> Vincent Gabriel <i class="caret"></i>
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a tabindex="-1" href="#">Profile</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a tabindex="-1" href="login.html">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav">
+
+                    <li class="dropdown">
+                        <a href="/admin#/users" role="button" class="dropdown-toggle" data-toggle="dropdown">用户管理
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="/admin#/modelverify" role="button" class="dropdown-toggle" data-toggle="dropdown">模型管理
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="/admin#/rank" role="button" class="dropdown-toggle" data-toggle="dropdown">排行榜
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/admin#/geturl" role="button" class="dropdown-toggle" data-toggle="dropdown">APP管理
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3" id="sidebar">
+            <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+                <li class="">
+                    <a href="/admin#/geturl"><i class="icon-chevron-right"></i> 修改闪图</a>
+                </li>
+                <li class="">
+                    <a href="/admin#/partsedit"><i class="icon-chevron-right"></i> 零件管理</a>
+                </li>
+                <li class="active">
+                    <a href="/admin#/push"><i class="icon-chevron-right"></i> 系统推送</a>
+                </li>
+                <li class="">
+                    <a href="/admin#/top"><i class="icon-chevron-right"></i> 首页banner</a>
+                </li>
+            </ul>
+        </div>
+        <div class="span9" id="login" >
+            <div class="block-content collapse in">
+                <div class="span12">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <legend>系统推送</legend>
+                            <div class="control-group">
+                                <label class="control-label" >推送人</label>
+                                <div class="controls">
+                                    <select id="order" ng-change="pushType(y)" ng-model="y">
+                                        <option value="1">全体推送</option>
+                                        <option value="2">个人推送</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group" >
+                                <div ng-show="pushTypes==2">
+                                    <label class="control-label" >uid</label>
+                                    <div class="controls">
+                                        <input ng-model="uid" type="text" class="span6"   >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" >推送类型</label>
+                                <div class="controls">
+                                    <select id="order" ng-change="pushChange(x)" ng-model="x">
+                                        <option value="1">网页推送</option>
+                                        <option value="2">模型推送</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" >推送内容</label>
+                                <div class="controls">
+                                    <input ng-model="content" type="text" class="span6" >
+                                </div>
+                            </div>
+                            <div class="control-group" >
+                                <div ng-show="pushChanges==1">
+                                    <label class="control-label" >url</label>
+                                    <div class="controls">
+                                        <input ng-model="url" type="text" class="span6"   >
+                                    </div>
+                                </div>
+                                <div ng-show="pushChanges==2">
+                                    <label class="control-label" >模型id</label>
+                                    <div class="controls">
+                                        <input ng-model="modelid" type="text" class="span6"   >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button ng-click="push()" type="submit" class="btn btn-primary">Push</button>
+                                <button type="reset" class="btn">Cancel</button>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                </div>
+        </div>
+        </div>
+    </div>

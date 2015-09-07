@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>重置密码</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<h1>重置密码</h1>
+<div>
+    <form method="post" action="/users/pwd">
+        <input type="hidden" name="uid" value="<%= uid%>"/>
+        <input type="hidden" name="resetToken" value="<%= resetToken%>"/>
+        <label>
+            <em>邮箱：</em><%= email%>
+        </label>
+        <label>
+            <em>新密码：</em>
+            <input type="password" name="newpasswd1" size="25" class="text"/>
+        </label>
+        <label>
+            <em>确认密码：</em>
+            <input type="password" name="newpasswd2" size="25" class="text"/>
+        </label>
+        <p>
+            <em>&nbsp;</em>
+            <button type="submit" name="getpwsubmit" value="true">
+                <span>提交</span>
+            </button>
+        </p>
+    </form>
+
+
+</div>
+</body>
+</html>

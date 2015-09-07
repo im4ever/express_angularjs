@@ -1,0 +1,72 @@
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">Ubtech</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> Vincent Gabriel <i class="caret"></i>
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a tabindex="-1" href="#">Profile</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a tabindex="-1" href="login.html">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav">
+
+                    <li class="active">
+                        <a href="/admin#/users" role="button" class="dropdown-toggle" data-toggle="dropdown">用户管理
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="/admin#/modelverify" role="button" class="dropdown-toggle" data-toggle="dropdown">模型管理
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="/admin#/rank" role="button" class="dropdown-toggle" data-toggle="dropdown">排行榜
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="/admin#/geturl" role="button" class="dropdown-toggle" data-toggle="dropdown">APP管理
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3" id="sidebar">
+            <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+                <li class="">
+                    <a href="/admin#/users"><i class="icon-chevron-right"></i> 用户列表</a>
+                </li>
+                <li class="active">
+                    <a href="/admin#/userinfo?uid={{userInfo.uid}}"><i class="icon-chevron-right"></i> 用户列表</a>
+                </li>
+            </ul>
+        </div>
+        <div class="span9" >
+        <h3>用户资料</h3>
+        <div class="alert alert-info alert-block">
+
+            <h4><img ng-src="{{userInfo.avatar}}" width="60px" height="'60px">{{userInfo.nickname}} </h4>
+            <h4>uid:{{userInfo.uid}}</h4>
+            <h5>性别:{{userInfo.sex}},登录IP:{{userInfo.loginIP}},版本:{{userInfo.version}},设备号:{{userInfo.deviceID}}</h5>
+        </div>
+        </div>
+    </div>
+</div>

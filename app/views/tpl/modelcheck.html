@@ -1,0 +1,123 @@
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">Ubtech</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> Vincent Gabriel <i class="caret"></i>
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a tabindex="-1" href="#">Profile</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a tabindex="-1" href="login.html">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav">
+
+                    <li class="dropdown">
+                        <a href="/admin#/users" role="button" class="dropdown-toggle" data-toggle="dropdown">用户管理
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/admin#/modelverify" role="button" class="dropdown-toggle" data-toggle="dropdown">模型管理
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="/admin#/rank" role="button" class="dropdown-toggle" data-toggle="dropdown">排行榜
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="/admin#/geturl" role="button" class="dropdown-toggle" data-toggle="dropdown">APP管理
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3" id="sidebar">
+            <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+                <li class="">
+                    <a href="/admin#/modelverify"><i class="icon-chevron-right"></i> 模型审核列表</a>
+                </li>
+                <li class="active">
+                    <a href="/admin#/modelcheck?mid={{modelInfo.mid}}"><i class="icon-chevron-right"></i> 模型审核详情</a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="span9" >
+        <h3>模型资料</h3>
+            <div class="alert alert-info alert-block">
+                <h4>id:{{modelInfo.mid}}  ,  作者:{{modelInfo.user.nickname}}  ,  时间:{{modelInfo.date}}</h4>
+            </div>
+            <div class="alert alert-success">
+                <h5>指令包含:</h5>
+                <span class="badge badge-info" ng-repeat="directive in modelInfo.directives">{{directive.actionName}}</span>
+                <a ng-href="{{modelInfo.url}}">模型文件下载</a>
+            </div>
+            <div class="block">
+                <div class="navbar navbar-inner block-header">
+                    <div class="muted pull-left">相册</div>
+                    </div>
+                <div class="block-content collapse in">
+                    <div class="row-fluid padd-bottom">
+                        <div class="span3"  ng-repeat="media in modelInfo.model_media" ng-if="media.mediaType == 0">
+                            <a  target="_blank" href="{{media.purl}}" class="thumbnail">
+                                <img  alt="260x180" style="width: 260px; height: 180px;" src="{{media.purl}}">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="navbar navbar-inner block-header">
+                    <div class="muted pull-left">视频</div>
+                </div>
+                <div class="block-content collapse in">
+                    <div class="row-fluid padd-bottom">
+
+                        <div class="span3"  ng-repeat="media in modelInfo.model_media" ng-if="media.mediaType == 1">
+                                <input type="hidden" value="{{media.videoUrl}}" id="videoUrl">
+                            <button class="btn" ng-click="change()">点击展开视频</button>
+                            <video controls="controls"  width="320" height="480" id='video' src="{{media.videoUrl}}"></video>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="block-content collapse in">
+                <div class="control-group success">
+                    <div class="controls">
+                        <span class="help-inline">请选择分类</span>
+                        <select ng-change="typeChange(x)" ng-model="x">
+                            <option ng-repeat="type in typeInfo" value="{{type.tid}}">{{type.title}}</option>
+                        </select>
+                        <button class="btn btn-success btn-large" ng-click="check(2)">通过</button>
+                    </div>
+                </div>
+                <div class="control-group error">
+                    <div class="controls">
+                        <span class="help-inline">请输入拒绝原因</span>
+                        <input type="text" id="inputError" ng-model="errMsg" placeholder="拒绝原因">
+                        <button class="btn btn-danger btn-large" ng-click="check(-1)">拒绝</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

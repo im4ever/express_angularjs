@@ -1,0 +1,83 @@
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">Ubtech</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> Vincent Gabriel <i class="caret"></i>
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a tabindex="-1" href="#">Profile</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a tabindex="-1" href="login.html">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav">
+
+                    <li class="dropdown">
+                        <a href="/admin#/users" role="button" class="dropdown-toggle" data-toggle="dropdown">用户管理
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="/admin#/modelverify" role="button" class="dropdown-toggle" data-toggle="dropdown">模型管理
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="/admin#/rank" role="button" class="dropdown-toggle" data-toggle="dropdown">排行榜
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/admin#/geturl" role="button" class="dropdown-toggle" data-toggle="dropdown">APP管理
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3" id="sidebar">
+            <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+                <li class="active">
+                    <a href="/admin#/geturl"><i class="icon-chevron-right"></i> 修改闪图</a>
+                </li>
+                <li class="">
+                    <a href="/admin#/partsedit"><i class="icon-chevron-right"></i> 零件管理</a>
+                </li>
+                <li class="">
+                    <a href="/admin#/push"><i class="icon-chevron-right"></i> 系统推送</a>
+                </li>
+                <li class="">
+                    <a href="/admin#/top"><i class="icon-chevron-right"></i> 首页banner</a>
+                </li>
+            </ul>
+        </div>
+        <div class="span9" id="login" >
+            <div class="span5">
+                <form class="form-signin">
+                    <h2 class="form-signin-heading">修改url</h2>
+                    <input type="text" class="input-block-level" ng-model="url" placeholder="url">
+                    <label class="checkbox">
+                    <button ng-click="editUrl()"  class="btn btn-large btn-primary" type="submit">保存</button>
+                </form>
+            </div>
+            <div class="span7">
+            <iframe ng-src="{{url}}" width="320px" height="420px"></iframe>
+            </div>
+        </div>
+        </div>
+    </div>
